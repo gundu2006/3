@@ -1,0 +1,43 @@
+import numpy as np
+import pandas as pd
+data = pd.read_csv('enjoysport.csv')
+print(data.head())
+
+data_values = []
+for row in data.values:
+    data_values.append(row)
+data_values = np.array(data_values)
+print(data_values)
+
+rows = []
+for row in data_values:
+    rows.append(row[:-1])
+rows = np.array(rows)
+print(rows)
+target = []
+for row in data_values:
+    target.append(row[-1])
+target = np.array(target)
+print(target)
+
+S = rows[0].copy()
+G = []
+for i in range(len(S)):
+    temp  = []
+    for j in range(len(S)):
+        temp.append('?')
+    G.append(temp)
+G = np.array(G)
+print(G)
+
+for i,row in enumerate(rows):
+    if target[i].lower() == "yes":
+        for x in range(len(S)):
+            if row[x] != S[x]:
+               S[x] = '?'
+    else : 
+       for x in range(len(S)):
+           if row[x] != S[x]:
+             G[x][x] = S[x]
+
+print(G)
